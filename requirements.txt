@@ -1,0 +1,5 @@
+numpy>=1.7.1
+scipy
+nose>=1.0
+keras
+imageio
