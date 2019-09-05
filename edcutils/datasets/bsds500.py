@@ -24,13 +24,12 @@ def load_data():
     """
 
     base = 'http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/BSR/'
-    files = ['BSR_bsds500.tgz']
+    fname = 'BSR_bsds500.tgz'
 
-    path
     path = get_file(fname,
                     origin = base + fname,
                     cache_dir = DEFAULT_CACHE_DIR,
-                    cache_subdir = 'bsds500'))
+                    cache_subdir = 'bsds500')
 
     f = tarfile.open(path)
 
@@ -41,14 +40,14 @@ def load_data():
             try:
                 fp = f.extractfile(name)
                 img = imageio.imread(fp)
-                train_data.append(bg_img)
+                train_data.append(img)
             except:
                 continue
         elif name.startswith('BSR/BSDS500/data/images/test/'):
             try:
                 fp = f.extractfile(name)
                 img = skimage.io.imread(fp)
-                test_data.append(bg_img)
+                test_data.append(img)
             except:
                 continue
 
