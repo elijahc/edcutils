@@ -13,7 +13,7 @@ setup(
         name = 'edcutils',
 
         version='0.0.1',
-        packages = ['edcutils','edcutils.utils','edcutils.datasets'],
+        packages = ['edcutils','edcutils','edcutils.datasets'],
         description = 'edc personal utils',
         author = 'Elijah C',
         author_email = 'elijah.christensen@ucdenver.edu',
