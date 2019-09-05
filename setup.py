@@ -10,10 +10,10 @@ with open(path.join(here,'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-        name = 'edc',
+        name = 'edcutils',
 
         version='0.0.1',
-        packages = ['edc','edc.utils','edc.datasets'],
+        packages = ['edcutils','edcutils.utils','edcutils.datasets'],
         description = 'edc personal utils',
         author = 'Elijah C',
         author_email = 'elijah.christensen@ucdenver.edu',
