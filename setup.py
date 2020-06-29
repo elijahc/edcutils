@@ -18,5 +18,11 @@ setup(
         author = 'Elijah C',
         author_email = 'elijah.christensen@ucdenver.edu',
         url = 'https://github.com/elijahc/edcutils',
+        install_requires=[
+            'keras',
+            'tensorflow',
+            'tqdm',
+            'pyreadstat',
+        ],
         classifiers = [],
 )
