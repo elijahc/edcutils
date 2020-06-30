@@ -23,6 +23,7 @@ setup(
             'tensorflow',
             'tqdm',
             'pyreadstat',
+            'imageio',
         ],
         classifiers = [],
 )
