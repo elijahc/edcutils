@@ -7,7 +7,6 @@ from __future__ import print_function
 import os
 
 import numpy as np
-import imageio
 import pandas as pd
 import glob
 from tqdm import tqdm
