@@ -90,8 +90,18 @@ def load_ed(year=None,usecols=None):
     sav_files = [f.split('.zip')[0]+'.sav' for f in cached_files]
     load_fps = [os.path.join(DEFAULT_CACHE_DIR,'nhamcs',f) for f in sav_files]
 
-    dataset = pd.concat(_load_spss(load_fps),sort=False)
+    ed_cols = ['ADMIT','ADMITHOS','ADMITOBS','LOS','HDSTAT']
+
+    dataset = pd.concat(_load_spss(load_fps,DEFAULT_COLS+ed_cols),sort=False)
     dataset['SPECCAT'] = 'Emergency Medicine'
+    dataset.AGEDAYS = dataset.AGEDAYS.replace({'Less than 1 day':0.5})
+    def convert_age(r):
+        if r.AGE == 'Under one year':
+            r.AGE = int(r.AGEDAYS)/365.0
+        
+        return r
+    dataset = dataset.transform(convert_age,axis=1)
+    # dataset.AGE = dataset.AGE.astype(np.uint64)
 
     return dataset
 
@@ -120,6 +130,8 @@ def load_opd(year=None,usecols=None):
     sav_files = [f.split('.zip')[0]+'.sav' for f in cached_files]
     load_fps = [os.path.join(DEFAULT_CACHE_DIR,'nhamcs',f) for f in sav_files]
 
-    dataset = pd.concat(_load_spss(load_fps,usecols=DEFAULT_COLS+['CLINTYPE']),sort=False)
+    addl_cols = ['CLINTYPE','ADMITHOS','REFERED','OTHDISP']
+    dataset = pd.concat(_load_spss(load_fps,usecols=DEFAULT_COLS+addl_cols),sort=False)
+    # dataset.AGE = dataset.AGE.astype(np.uint64)
 
     return dataset
