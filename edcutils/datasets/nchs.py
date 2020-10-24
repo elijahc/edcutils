@@ -23,7 +23,18 @@ DEFAULT_COLS = ['SETTYPE','MAJOR','RFV13D','RFV1','YEAR','REGION','AGE','AGER','
 
 PUB_DIR = 'pub/Health_Statistics/NCHS'
 
+
 # NCHS_BASE = 'ftp://ftp.cdc.gov//dataset_documentation/nhamcs/spss/'
+
+def _remote_ls(host='ftp.cdc.gov',path=''):
+    contents = []
+    with FTP(host) as ftp:
+        ftp.login()
+        ftp.cwd(path)
+        ftp.dir(contents.append)
+
+    files = [f.split(' ')[-1] for f in contents]
+    return files
 
 def _data_files(survey,file_format):
     remote_dir = '/'.join([PUB_DIR,'dataset_documentation',str(survey).lower(),str(file_format).lower()])

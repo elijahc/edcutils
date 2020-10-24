@@ -7,7 +7,9 @@ from tqdm import tqdm
 
 from keras.utils.data_utils import get_file
 
-from .nchs import _data_files,DEFAULT_COLS
+from .nchs import _data_files,DEFAULT_COLS,PUB_DIR,_remote_ls
+
+NACMS_DIR = '/'.join([PUB_DIR,'dataset_documentation','namcs'])
 
 PRACTICE_COLS = ['SPEC','SPECR','SPECCAT']
 DISPOSITION = ['ADMITHOS','REFERED','REFOTHMD','NOFU','RETPRN','RETAPPT','TELEPHON']
@@ -16,13 +18,8 @@ DISPOSITION = ['ADMITHOS','REFERED','REFOTHMD','NOFU','RETPRN','RETAPPT','TELEPH
 DEFAULT_CACHE_DIR = os.path.join(os.path.expanduser('~'), 'data')
 
 def _remote_spss():
-    contents = []
-    with FTP('ftp.cdc.gov') as ftp:
-        ftp.login()
-        ftp.cwd('pub/Health_Statistics/NCHS/dataset_documentation/namcs/spss/')
-        ftp.dir(contents.append)
-
-    files = [f.split(' ')[-1] for f in contents]
+    spss_data_dir = '/'.join([NACMS_DIR,'spss'])
+    files = _remote_ls(path=spss_data_dir)
     dat_files = [f for f in files if f.endswith('spss.zip') and 'chc' not in f]
     return dat_files
 
@@ -70,7 +67,7 @@ def load_data(year=None,usecols=None):
         sel_files = _remote_sel(year=year)
 
     # sav_files = [f.split('.zip')[0]+'.sav' for f in sel_files]
-    pbar = tqdm(_cache_spss(sel_files))
+    pbar = tqdm(_cache_spss(sel_files),total=len(sel_files))
     dfs = []
     for f in pbar:
         f = f.split('.zip')[0]+'.sav'

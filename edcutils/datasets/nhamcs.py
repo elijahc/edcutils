@@ -15,7 +15,9 @@ import pyreadstat
 
 from keras.utils.data_utils import get_file
 
-from .nchs import DEFAULT_COLS
+from .nchs import DEFAULT_COLS,_remote_ls,PUB_DIR
+
+NHAMCS_DIR = '/'.join([PUB_DIR,'dataset_documentation','nhamcs'])
 
 HOSP_INFO = ['MSA','OWNER','HOSPCODE']
 
@@ -35,6 +37,12 @@ OPD_SPSS = [
     'opd2011-spss.zip',
     'opd2010-spss.zip',
 ]
+
+def _remote_spss():
+    spss_data_dir = '/'.join([NHAMCS_DIR,'spss'])
+    files = _remote_ls(path=spss_data_dir)
+    dat_files = [f for f in files if f.endswith('spss.zip') and 'chc' not in f]
+    return dat_files
 
 def _cache_spss_sav(files=SPSS_FILES):
     base = 'ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/dataset_documentation/nhamcs/spss/'
