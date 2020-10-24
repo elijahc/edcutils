@@ -12,7 +12,7 @@ with open(path.join(here,'README.md'), encoding='utf-8') as f:
 setup(
         name = 'edcutils',
 
-        version='0.0.1',
+        version='0.1.0',
         packages = ['edcutils','edcutils','edcutils.datasets'],
         description = 'edc personal utils',
         author = 'Elijah C',
